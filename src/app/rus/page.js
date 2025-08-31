@@ -3,7 +3,7 @@ import en from "@/app/locales/en.json"
 import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-function getThreeUniqueNumbers(exclude, pl) {
+function getThreeUniqueNumbers(exclude) {
   const numbers = [1, 2, 3, 4, 5].filter(n => n !== exclude);
   const result = [];
 
@@ -72,7 +72,8 @@ export default function Rus() {
         }
         let ans = [];
         const a = Math.floor(Math.random() * 3);
-        const falseCases = getThreeUniqueNumbers(cs, data[randId].forms.length > 6);
+        //const falseCases = getThreeUniqueNumbers(cs, data[randId].forms.length > 6);
+        const falseCases = getThreeUniqueNumbers(cs);
         let j = 0;
         for (let i = 0; i < 4; i++) {
             if (i == a) {
@@ -255,7 +256,7 @@ export default function Rus() {
                                 //         {l.russian.load}
                                 //     </button>
                                 // </div>
-                                <h1>We're still working on it!</h1>
+                                <h1>We are still working on it!</h1>
                             ) : null}
                             {page === 3 ? (
                                 <div className="flex flex-col items-start">
@@ -291,7 +292,7 @@ export default function Rus() {
                                     >
                                         {l.russian.load}
                                     </button> */}
-                                    <h1>We're still working on it!</h1>
+                                    <h1>We are still working on it!</h1>
                                 </div>
                             ) : null}
                         </div>
