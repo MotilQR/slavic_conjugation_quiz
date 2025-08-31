@@ -29,7 +29,8 @@
         "incorrect": "Incorrect. Wanna try again?",
         "nextWord": "Next word",
         "yesButton": "Yes",
-        "noButton": "No"
+        "noButton": "No",
+        "loading": "Loading..."
     },
 
     "cases": {
