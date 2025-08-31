@@ -1,6 +1,6 @@
 "use client"
 import en from "@/app/locales/en.json"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 function getThreeUniqueNumbers(exclude, pl) {
