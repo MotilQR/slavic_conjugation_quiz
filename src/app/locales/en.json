@@ -1,0 +1,49 @@
+{
+
+    "header": {
+        "title": "Slavic quiz",
+        "home": "Home",
+        "about": "About"
+    },
+
+    "homePage": {
+        "title": "Welcome to Slavic quiz!",
+        "subtitle": "Choose the language to train",
+        "russian": "Russian",
+        "czech": "Czech",
+        "ukranian": "Ukranian",
+        "polish": "Polish"
+    },
+
+    "russian": {
+        "title": "Here you can train your russian declension / conjugation!",
+        "subtitle": "Choose the part of speech",
+        "noun": "Noun",
+        "verb": "Verb",
+        "adjective": "Adjective",
+        "modetest": "Test mode",
+        "modefull": "Full mode",
+        "load": "Load word",
+        "choose": "Choose the ",
+        "correct": "Correct! Wanna continue?",
+        "incorrect": "Incorrect. Wanna try again?",
+        "nextWord": "Next word",
+        "yesButton": "Yes",
+        "noButton": "No"
+    },
+
+    "cases": {
+        "nominative": "Nominative",
+        "genitive": "Genitive",
+        "dative": "Dative",
+        "accusative": "Accusative",
+        "instrumental": "Instrumental",
+        "locative": "Locative",
+        "vocative": "Vocative"
+    },
+
+    "plurality": {
+        "single": "single ",
+        "plural": "plural "
+    }
+}
