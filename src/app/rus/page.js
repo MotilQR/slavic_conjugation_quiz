@@ -21,19 +21,21 @@ function getThreeUniqueNumbers(exclude, pl) {
 }
 
 function makeAnswersNoun(word, ans, pl) {
-    if (word.forms.length === 24) 
-        ans *= 2;
-    let falseCases = getThreeUniqueNumbers(ans, pl);
+    const inst = (word.forms.length === 7 || word.forms.length === 13 || word.forms.length === 25) ? 7 : 6;
+    let ansF = ans;
+    if (word.forms.length === 24 || (word.forms.length === 12 && word.forms[10].grammemes[4] === 'sing')) 
+        ansF *= 2;
+    let falseCases = getThreeUniqueNumbers(ansF, pl);
     let answers = [];
 
     let j = 0;
     const a = Math.floor(Math.random() * 3);
     for (let i = 0; i < 4; i++) {
         if (i === a) {
-            answers.push({id: i, ans: word.forms[ans].form, isCorrect: true})
+            answers.push({id: i, ans: word.forms[ansF].form, isCorrect: true})
         } else {
-            while (word.forms[ans].form === word.forms[falseCases[j]].form) {
-                falseCases[j] = (falseCases[j] + 1) % (pl ? 12 : 6);
+            while (word.forms[ansF].form === word.forms[falseCases[j]].form) {
+                falseCases[j] = (falseCases[j] + 1) % (pl ? ((inst == 7) ? 13 : 12) : inst);
                 falseCases[j] += (falseCases[j] == 0 ? 1 : 0);
             }
 
@@ -93,34 +95,36 @@ export default function Rus() {
             }
         }
         setPlural(pl);
-        const cs = 3 + (pl ? 6 : 0);
+        const inst = (data[randId].forms.length == 13 || data[randId].forms.length == 7 || data[randId].forms.length == 25) ? 7 : 6;
+        const cs = Math.floor(Math.random() * 6) + (pl ? inst : 0);
+
+        console.log(cs);
 
         switch(cs) {
-            case 1 + (pl ? 6 : 0):
+            case 1 + (pl ? inst : 0):
                 setWordCase(l.cases.genitive)
                 break;
-            case 2 + (pl ? 6 : 0):
+            case 2 + (pl ? inst : 0):
                 setWordCase(l.cases.dative)
                 break;
-            case 3 + (pl ? 6 : 0):
+            case 3 + (pl ? inst : 0):
                 setWordCase(l.cases.accusative)
                 break;
-            case 4 + (pl ? 6 : 0):
+            case 4 + (pl ? inst : 0):
                 setWordCase(l.cases.instrumental)
                 break;
-            case 5 + (pl ? 6 : 0):
+            case 5 + (pl ? inst : 0):
                 setWordCase(l.cases.locative)
                 break;
         }
 
         const anss = makeAnswersNoun(data[randId], cs, pl);
-        console.log(cs);
         console.log(anss);
         setAnswers(anss);
         setAnswered(false);
         setCorrect(false);
         setLoading(false);
-        setWord(data[randId].lemma)
+        setWord(data[randId])
     }
 
     return (
@@ -191,7 +195,7 @@ export default function Rus() {
                     </div>
                 ) : word ? (
                         <div className="mt-2 flex flex-col items-start gap-4 ml-4">
-                            <h1 className="text-xl font-bold p-0.5">{word}</h1>
+                            <h1 className="text-xl font-bold p-0.5">{word.lemma + "  " + word.forms[0].grammemes[2]}</h1>
                             <p>{l.russian.choose + (plural ? l.plurality.plural : l.plurality.single) + wordCase}</p>
                             {String(mode) === String("test") ? (
                                 <div className="flex flex-col gap-0.5">
