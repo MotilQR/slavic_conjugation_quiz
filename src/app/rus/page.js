@@ -20,8 +20,9 @@ function getThreeUniqueNumbers(exclude, pl) {
     return result;
 }
 
-function makeAnswersNoun(word, ans) {
-    const pl = word.forms.length > 6;
+function makeAnswersNoun(word, ans, pl) {
+    if (word.forms.length === 24) 
+        ans *= 2;
     let falseCases = getThreeUniqueNumbers(ans, pl);
     let answers = [];
 
@@ -83,10 +84,16 @@ export default function Rus() {
             return null;
         }
         console.log(data[randId]);
-
-        const pl = Math.random() < 0.5 && data[randId].forms.length > 6;
-        setPlural(pl)
-        const cs = Math.floor(Math.random() * 5) + 1 + (pl ? 6 : 0);
+        let pl = false;
+        if (data[randId].forms.length > 6) {
+            if (data[randId].length > 11) {
+                pl = data[randId].forms[15].grammemes[4] !== 'sing';
+            } else {
+                pl = data[randId].forms[8].grammemes[4] !== 'sing';
+            }
+        }
+        setPlural(pl);
+        const cs = 3 + (pl ? 6 : 0);
 
         switch(cs) {
             case 1 + (pl ? 6 : 0):
@@ -106,7 +113,10 @@ export default function Rus() {
                 break;
         }
 
-        setAnswers(makeAnswersNoun(data[randId], cs));
+        const anss = makeAnswersNoun(data[randId], cs, pl);
+        console.log(cs);
+        console.log(anss);
+        setAnswers(anss);
         setAnswered(false);
         setCorrect(false);
         setLoading(false);
