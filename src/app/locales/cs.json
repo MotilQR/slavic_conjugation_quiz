@@ -1,0 +1,60 @@
+{
+    "header": {
+        "title": "Slavic quiz",
+        "home": "Domů",
+        "about": "O nás"
+    },
+
+    "homePage": {
+        "title": "Vítejte ve Slavic quiz!",
+        "subtitle": "Vyberte jazyk, se kterým se chcete procvičovat",
+        "russian": "Ruština",
+        "czech": "Čeština",
+        "ukranian": "Ukrajinština",
+        "polish": "Polština"
+    },
+
+    "russian": {
+        "title": "Zde si můžete procvičit ruské skloňování a časování!",
+        "subtitle": "Vyberte slovní druh",
+        "noun": "Podstatné jméno",
+        "verb": "Sloveso",
+        "adjective": "Přídavné jméno",
+        "modetest": "Testovací režim",
+        "modefull": "Plný režim",
+        "load": "Načíst slovo",
+        "choose": "Vyberte ",
+        "correct": "Správně! Chcete pokračovat?",
+        "incorrect": "Špatně. Zkusit znovu?",
+        "nextWord": "Další slovo",
+        "yesButton": "Ano",
+        "noButton": "Ne",
+        "loading": "Načítání..."
+    },
+
+    "cases": {
+        "nominative": "Nominativ",
+        "genitive": "Genitiv",
+        "dative": "Dativ",
+        "accusative": "Akuzativ",
+        "instrumental": "Instrumentál",
+        "locative": "Lokál",
+        "vocative": "Vokativ"
+    },
+
+    "plurality": {
+        "single": "jednotné ",
+        "plural": "množné "
+    },
+
+    "animate": {
+        "inan": "neživé ",
+        "anim": "živé "
+    },
+
+    "gender": {
+        "masc": "mužský ",
+        "femn": "ženský ",
+        "neut": "střední "
+    }
+}

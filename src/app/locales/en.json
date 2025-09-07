@@ -46,5 +46,16 @@
     "plurality": {
         "single": "single ",
         "plural": "plural "
+    },
+
+    "animate": {
+        "inan": "inanimate ",
+        "anim": "animate "
+    },
+
+    "gender": {
+        "masc": "masculine ",
+        "femn": "feminitive ",
+        "neut": "neutral "
     }
 }
