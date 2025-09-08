@@ -34,7 +34,7 @@ export default function Rus() {
     const [l, setLang] = useState(en);
     const router = useRouter();
     
-    useEffect(() => {
+    /* useEffect(() => {
             const params = new URLSearchParams(window.location.search)
             const l = params.get("lang");
             switch (String(l)) {
@@ -50,7 +50,7 @@ export default function Rus() {
                 break;
             }
             router.refresh();
-    }, [])
+    }, []) */
 
     const supabaseUrl = "https://qvtjiinmoosyootzrjhs.supabase.co";
     const supabaseKey = "sb_publishable_R41KZwttRTglv0d1Z6L0Eg_-eWIrqmk";
