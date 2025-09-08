@@ -17,12 +17,12 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [currentLang, setCurrentLang] = useState(searchParams.get("lang") || "en");
+  const [currentLang, setCurrentLang] = useState("en");
 
   const changeLanguage = (lang: string) => {
-    const params = new URLSearchParams(searchParams);
+    /*const params = new URLSearchParams(searchParams);
     params.set("lang", lang);
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);*/
     setCurrentLang(lang);
     switch (String(lang)) {
       case "ru":
