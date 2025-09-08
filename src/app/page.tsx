@@ -1,33 +1,13 @@
 "use client";
 import en from "@/app/locales/en.json"
-import ru from "@/app/locales/ru.json"
-import cs from "@/app/locales/en.json"
+// import ru from "@/app/locales/ru.json"
+// import cs from "@/app/locales/en.json"
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { ReadonlyURLSearchParams } from "next/navigation";
+import { useState } from "react";
 
-// app/page.tsx
 export default function Home() {
-  const [lang, setLang] = useState(en);
+  const lang = en;
   const router = useRouter();
-
-  /* useEffect(() => {
-        const params = new URLSearchParams(window.location.search)
-        const l = params.get("lang");
-        switch (String(l)) {
-          case "ru":
-            console.log(l);
-            setLang(ru);
-            break;
-          case "cs":
-            setLang(cs);
-            break;
-          default:
-            setLang(en)
-            break;
-        }
-        router.refresh();
-  }, [])*/
 
   return (
     <div className="min-h-screen bg-[#0D101C] text-white">

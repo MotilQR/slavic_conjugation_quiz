@@ -1,10 +1,7 @@
 "use client"
 import en from "@/app/locales/en.json"
-import ru from "@/app/locales/ru.json"
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import { LucideTableCellsMerge } from "lucide-react";
 
 function getRandomNumbers(max) {
   const count = Math.min(max + 1, 3);
@@ -31,26 +28,7 @@ export default function Rus() {
     const [loading, setLoading] = useState(false);
 
     const [answers, setAnswers] = useState([]);
-    const [l, setLang] = useState(en);
-    const router = useRouter();
-    
-    /* useEffect(() => {
-            const params = new URLSearchParams(window.location.search)
-            const l = params.get("lang");
-            switch (String(l)) {
-              case "ru":
-                console.log(l);
-                setLang(ru);
-                break;
-              case "cs":
-                setLang(cs);
-                break;
-              default:
-                setLang(en)
-                break;
-            }
-            router.refresh();
-    }, []) */
+    const l = en;
 
     const supabaseUrl = "https://qvtjiinmoosyootzrjhs.supabase.co";
     const supabaseKey = "sb_publishable_R41KZwttRTglv0d1Z6L0Eg_-eWIrqmk";
