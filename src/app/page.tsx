@@ -11,7 +11,7 @@ export default function Home() {
   const [lang, setLang] = useState(en);
   const router = useRouter();
 
-  useEffect(() => {
+  /* useEffect(() => {
         const params = new URLSearchParams(window.location.search)
         const l = params.get("lang");
         switch (String(l)) {
@@ -27,7 +27,7 @@ export default function Home() {
             break;
         }
         router.refresh();
-  }, [])
+  }, [])*/
 
   return (
     <div className="min-h-screen bg-[#0D101C] text-white">
