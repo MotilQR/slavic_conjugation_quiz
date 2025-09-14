@@ -35,112 +35,131 @@ export default function Rus() {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const fetchWord = async (type) => {
-        const minId = Math.floor(Math.random() * (394250 + 1));
-        const randId = Math.floor(Math.random() * (999 + 1));
+        if (type !== "VERB") {
+            const minId = Math.floor(Math.random() * (394250 + 1));
+            const randId = Math.floor(Math.random() * (999 + 1));
 
-        const { data, error } = await supabase
-            .from('lemmas')
-            .select('*')
-            .eq('post', type)  
-            .gt('id', minId);  
-        
+            const { data, error } = await supabase
+                .from('lemmas')
+                .select('*')
+                .eq('post', type)  
+                .gt('id', minId);  
+            
 
-        if (error) {
-            console.error("Ошибка при получении слова:", error);
-            return null;
-        }
-        let gender = type === "NOUN" ? null : Math.round(Math.random() * 2);
-        switch (gender) {
-            case 0:
-                gender = "masc";
-                setWordGend(l.gender.masc);
-                break;
-            case 1:
-                gender = "femn";
-                setWordGend(l.gender.femn);
-                break;
-            case 2:
-                gender = "neut";
-                setWordGend(l.gender.neut);
-                break;
-            default:
-                data[randId].forms[0].grammemes.forEach(g => {
-                    if (g === "masc" || g === "femn" || g === "neut")
-                        gender = g;
-                });
-                break;
-        }
+            if (error) {
+                console.error("Ошибка при получении слова:", error);
+                return null;
+            }
+            let gender = type === "NOUN" ? null : Math.round(Math.random() * 2);
+            switch (gender) {
+                case 0:
+                    gender = "masc";
+                    setWordGend(l.gender.masc);
+                    break;
+                case 1:
+                    gender = "femn";
+                    setWordGend(l.gender.femn);
+                    break;
+                case 2:
+                    gender = "neut";
+                    setWordGend(l.gender.neut);
+                    break;
+                default:
+                    data[randId].forms[0].grammemes.forEach(g => {
+                        if (g === "masc" || g === "femn" || g === "neut")
+                            gender = g;
+                    });
+                    break;
+            }
 
-        console.log(gender);
+            console.log(gender);
 
-        const wordFun = data[randId];  
-        let pl = (Math.round(Math.random()) + 1) == 1 ? "plur" : "sing";
-        let plFlag = false;
-        wordFun.forms.forEach((form) => {
-            if (form.grammemes.indexOf("plur") !== -1)
-                plFlag = true;
-        });
-        if (!plFlag) 
-            pl = "sing";
-        setPlural(pl === "plur");
-        let cs = Math.floor(Math.random() * 4) + 1;
+            const wordFun = data[randId];  
+            let pl = (Math.round(Math.random()) + 1) == 1 ? "plur" : "sing";
+            let plFlag = false;
+            wordFun.forms.forEach((form) => {
+                if (form.grammemes.indexOf("plur") !== -1)
+                    plFlag = true;
+            });
+            if (!plFlag) 
+                pl = "sing";
+            setPlural(pl === "plur");
+            let cs = Math.floor(Math.random() * 4) + 1;
 
-        switch (cs) {
-            case 1:
-                cs = "gent"
-                setWordCase(l.cases.genitive)
-                break;
-            case 2:
-                cs = "datv"
-                setWordCase(l.cases.dative)
-                break;
-            case 3:
-                cs = "accs"
-                setWordCase(l.cases.accusative)
-                break;
-            case 4:
-                cs = "ablt"
-                setWordCase(l.cases.instrumental)
-                break;
-            case 5:
-                cs = "loct"
-                setWordCase(l.cases.locative)
-                break;
-        }
+            switch (cs) {
+                case 1:
+                    cs = "gent"
+                    setWordCase(l.cases.genitive)
+                    break;
+                case 2:
+                    cs = "datv"
+                    setWordCase(l.cases.dative)
+                    break;
+                case 3:
+                    cs = "accs"
+                    setWordCase(l.cases.accusative)
+                    break;
+                case 4:
+                    cs = "ablt"
+                    setWordCase(l.cases.instrumental)
+                    break;
+                case 5:
+                    cs = "loct"
+                    setWordCase(l.cases.locative)
+                    break;
+            }
+
+            
 
 
-        const ansForm = wordFun.forms.find((form) => {
-            return form.grammemes.indexOf(cs) !== -1 && form.grammemes.indexOf(pl) !== -1 && (form.grammemes.indexOf(gender) !== -1 || (form.grammemes.indexOf("femn") === -1 && form.grammemes.indexOf("masc") === -1 && form.grammemes.indexOf("neut") === -1));
-        });
-        console.log(wordFun); console.log(pl); console.log(cs); console.log(ansForm);
+            const ansForm = wordFun.forms.find((form) => {
+                return form.grammemes.indexOf(cs) !== -1 && form.grammemes.indexOf(pl) !== -1 && (form.grammemes.indexOf(gender) !== -1 || (form.grammemes.indexOf("femn") === -1 && form.grammemes.indexOf("masc") === -1 && form.grammemes.indexOf("neut") === -1));
+            });
+            console.log(wordFun); console.log(pl); console.log(cs); console.log(ansForm);
 
-        let formsToAns = wordFun.forms.filter((f) => {
-            return (f.grammemes.indexOf(cs) === -1 || f.grammemes.indexOf(pl) === -1) && f.form !== ansForm.form && f.grammemes.indexOf("V-be") === -1;
-        });
+            let formsToAns = wordFun.forms.filter((f) => {
+                return (f.grammemes.indexOf(cs) === -1 || f.grammemes.indexOf(pl) === -1) && f.form !== ansForm.form && f.grammemes.indexOf("V-be") === -1;
+            });
 
-        formsToAns = Array.from(
-            new Set(formsToAns.map(item => item.form))
-        );
-        //console.log("\n"); console.log(formsToAns);
+            formsToAns = Array.from(
+                new Set(formsToAns.map(item => item.form))
+            );
+            //console.log("\n"); console.log(formsToAns);
 
-        const a = Math.floor(Math.random() * 3);
-        const aInds = getRandomNumbers(formsToAns.length - 1);
-        let ans = [];
-        let j = 0;
-        for (let i = 0; i < Math.min(formsToAns.length, 4); i++) {
-            if (i === a) {
-                ans.push({id: i, ans: ansForm.form, isCorrect: true});
-            } else {
-                ans.push({id: i, ans: formsToAns[aInds[j]], isCorrect: false});
-                j++;
+            const a = Math.floor(Math.random() * 3);
+            const aInds = getRandomNumbers(formsToAns.length - 1);
+            let ans = [];
+            let j = 0;
+            for (let i = 0; i < Math.min(formsToAns.length, 4); i++) {
+                if (i === a) {
+                    ans.push({id: i, ans: ansForm.form, isCorrect: true});
+                } else {
+                    ans.push({id: i, ans: formsToAns[aInds[j]], isCorrect: false});
+                    j++;
+                }
+            }
+
+            setAnswers(ans);
+            setAnswered(false);
+            setCorrect(false);
+            setLoading(false);
+            setWord(data[randId])
+        } else {
+            const minId = Math.floor(Math.random() * (394250 + 1));
+            const randId = Math.floor(Math.random() * (999 + 1));
+
+            const { data, error } = await supabase
+                .from('lemmas')
+                .select('*')
+                .eq('post', "INF")  
+                .gt('id', minId);  
+            
+
+            if (error) {
+                console.error("Ошибка при получении слова:", error);
+                return null;
             }
         }
-
-        setAnswers(ans);
-        setAnswered(false);
-        setCorrect(false);
-        setLoading(false);
-        setWord(data[randId])
     }
 
     return (

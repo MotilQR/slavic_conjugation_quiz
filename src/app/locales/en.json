@@ -32,6 +32,15 @@
         "noButton": "No",
         "loading": "Loading..."
     },
+    
+    "wordle": {
+        "title": "Here you can play games with slavic languages!\nChoose the length of the word",
+        "let": "letters",
+        "retry": "Try again",
+        "back": "Go back",
+        "win": "Congratulations! Wanna continue?",
+        "lose": "You're out of guesses. Word was: "
+    },
 
     "cases": {
         "nominative": "Nominative",
