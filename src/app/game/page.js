@@ -20,6 +20,7 @@ export default function Home() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [message, setMessage] = useState('');
   const [answer, setAnswer] = useState('');
+  const [loading, setLoading] = useState(false);
   const l = en;
 
   const supabaseUrl = "https://qvtjiinmoosyootzrjhs.supabase.co";
@@ -28,17 +29,21 @@ export default function Home() {
 
   const fetchWord = async (length) => {
     setWordLength(length)
-    const minId = Math.floor(Math.random() * (394250 + 1));
-    const { data, error } = await supabase
-        .from("lemmas")
-        .select("id, lemma")
-        .gt("id", minId)
-    const dataF = data.filter(item => item.lemma.length === length);
-    console.log(dataF);
-    const randId = Math.floor(Math.random() * (dataF.length + 1));
-    const ans = dataF[randId].lemma;
+    setLoading(true);
+    let ans = null;
+    while (ans == null) {
+      const minId = Math.floor(Math.random() * (394250 + 1));
+      const { data, error } = await supabase
+          .from("lemmas")
+          .select("id, lemma")
+          .gt("id", minId)
+      const dataF = data.filter(item => item.lemma.length === length);
+      const randId = Math.floor(Math.random() * (dataF.length + 1));
+      ans = dataF[randId] ? dataF[randId].lemma : null;
+    }
     console.log(ans)
     setAnswer(String(ans.toLowerCase()));
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -103,6 +108,7 @@ export default function Home() {
   
 
     const resetGame = () => {
+        setAnswer(fetchWord(wordLength))
         setGuesses([]);
         setCurrentGuess('');
         setRevealed([]);
@@ -118,16 +124,24 @@ export default function Home() {
     return 'bg-gray-700 text-white';
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0D101C] text-white">
+        <h1>Loading...</h1>
+      </div>
+    )
+  }
+
   if (!wordLength) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-        <h1 className="text-2xl mb-6">{l.wordle.title}</h1>
+      <div className="flex flex-col items-center justify-center h-screen bg-[#0D101C]">
+        <h1 className="text-2xl mb-6 justify-center text-white">{l.wordle.title}</h1>
         <div className="flex gap-4">
           {[4, 5, 6].map(len => (
             <button
               key={len}
               onClick={() => fetchWord(len)}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="px-4 py-2 bg-[#DB2B39] hover:bg-[#AE1E2A] transition text-white rounded"
             >
               {len} {l.wordle.let}
             </button>
@@ -138,7 +152,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#0D101C] p-4">
 
       <div className="grid gap-2 mb-4">
         {Array.from({ length: MAX_ATTEMPTS }).map((_, rowIndex) => {
@@ -178,17 +192,17 @@ export default function Home() {
       {/* Показываем сообщение после анимации */}
       {message && (
         <div className="mt-4 flex flex-col items-center">
-          <p className="text-xl mb-2">{message}</p>
+          <p className="text-xl text-white mb-2">{message}</p>
           <div className="flex gap-4">
             <button
                 onClick={resetGame}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="px-4 py-2 bg-[#DB2B39] hover:bg-[#AE1E2A] transition text-white rounded"
             >
                 {l.wordle.retry}
             </button>
             <button
                 onClick={() => window.location.reload()}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                className="px-4 py-2 bg-[#DB2B39] hover:bg-[#AE1E2A] transition text-white rounded"
             >
                 {l.wordle.back}
             </button>

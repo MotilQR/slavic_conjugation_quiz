@@ -19,6 +19,7 @@ export default function Header() {
       <nav className="flex gap-4">
         <Link href={`/?lang=${currentLang}`} className="text-[#29335C] hover:text-[#0D101C] hover:underline">{l.header.home}</Link>
         <Link href={`/about?lang=${currentLang}`} className="text-[#29335C] hover:text-[#0D101C] hover:underline">{l.header.about}</Link>
+        <Link href={`/game?lang=${currentLang}`} className="text-[#29335C] hover:text-[#0D101C] hover:underline">{l.header.game}</Link>
         {/* <select
           value={currentLang}
           onChange={(e) => changeLanguage(e.target.value)}

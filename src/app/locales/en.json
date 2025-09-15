@@ -3,7 +3,8 @@
     "header": {
         "title": "Slavic quiz",
         "home": "Home",
-        "about": "About"
+        "about": "About",
+        "game": "Wordle"
     },
 
     "homePage": {
