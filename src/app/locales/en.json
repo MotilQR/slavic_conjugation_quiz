@@ -53,7 +53,7 @@
     },
     
     "wordle": {
-        "title": "Here you can play games with slavic languages!\nChoose the length of the word",
+        "title": "Here you can play games with slavic languages! Choose the length and the language of the word",
         "let": "letters",
         "retry": "Try again",
         "back": "Go back",

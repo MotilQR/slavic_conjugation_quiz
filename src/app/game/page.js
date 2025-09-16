@@ -21,19 +21,33 @@ export default function Home() {
   const [message, setMessage] = useState('');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
+  const [wordLang, setWordLang] = useState(null);
   const l = en;
 
-  const supabaseUrl = "https://qvtjiinmoosyootzrjhs.supabase.co";
-  const supabaseKey = "sb_publishable_R41KZwttRTglv0d1Z6L0Eg_-eWIrqmk";
-  const supabase = createClient(supabaseUrl, supabaseKey);
+  const supabaseUrlRu = "https://qvtjiinmoosyootzrjhs.supabase.co";
+  const supabaseKeyRu = "sb_publishable_R41KZwttRTglv0d1Z6L0Eg_-eWIrqmk";
+  const supabaseRu = createClient(supabaseUrlRu, supabaseKeyRu);
+
+  const supabaseUrlPl = "https://nwdkssafheeqfofajdtr.supabase.co";
+  const supabaseKeyPl = "sb_publishable_JfMigoy6ai_V2yWD4a-grQ_ZSW_LoQj";
+  const supabasePl = createClient(supabaseUrlPl, supabaseKeyPl);
 
   const fetchWord = async (length) => {
+    let base;
+    switch (wordLang) {
+      case "ru":
+        base = supabaseRu;
+        break;
+      case "pl":
+        base = supabasePl;
+        break;
+    }
     setWordLength(length)
     setLoading(true);
     let ans = null;
     while (ans == null) {
       const minId = Math.floor(Math.random() * (394250 + 1));
-      const { data, error } = await supabase
+      const { data, error } = await base
           .from("lemmas")
           .select("id, lemma")
           .gt("id", minId)
@@ -132,7 +146,29 @@ export default function Home() {
     )
   }
 
-  if (!wordLength) {
+  if (!wordLang) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-[#0D101C]">
+        <h1 className="text-2xl mb-6 justify-center text-white">{l.wordle.title}</h1>
+        <div className="flex gap-4">
+          <button
+            className="px-4 py-2 bg-[#DB2B39] hover:bg-[#AE1E2A] transition text-white rounded"
+            onClick={() => setWordLang("ru")}
+          >
+            {l.homePage.russian}
+          </button>
+          <button
+            className="px-4 py-2 bg-[#DB2B39] hover:bg-[#AE1E2A] transition text-white rounded"
+            onClick={() => setWordLang("pl")}
+          >
+            {l.homePage.polish}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!wordLength && wordLang) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-[#0D101C]">
         <h1 className="text-2xl mb-6 justify-center text-white">{l.wordle.title}</h1>
