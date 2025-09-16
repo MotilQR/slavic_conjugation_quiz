@@ -26,7 +26,8 @@ export default function Home() {
           <button className="px-6 py-3 bg-[#DB2B39] text-white rounded-xl shadow hover:bg-[#AE1E2A] transition">
             {lang.homePage.ukranian}
           </button>
-          <button className="px-6 py-3 bg-[#DB2B39] text-white rounded-xl shadow hover:bg-[#AE1E2A] transition">
+          <button className="px-6 py-3 bg-[#DB2B39] text-white rounded-xl shadow hover:bg-[#AE1E2A] transition"
+                  onClick={() => {router.push("/pol")}}>
             {lang.homePage.polish}
           </button>
         </div>
