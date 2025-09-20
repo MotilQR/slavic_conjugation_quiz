@@ -63,7 +63,7 @@ export default function Home() {
   useEffect(() => {
     const handleKey = (e) => {
       if (!wordLength || isGameOver) return;
-      const allowed = /^[a-zA-Zа-яёąćęłńóśżźĄĆĘŁŃÓŚŻŹ]$/i;
+      const allowed = /^[a-zA-Zа-яёąćęłńóśżźĄĆĘŁŃÓŚŻŹáÁíÍůúŮÚéÉýÝěĚšŠčČřŘžŽňŇďĎťŤ]$/i;
 
       if (e.key === 'Enter') {
         if (currentGuess.length === wordLength) revealGuess(currentGuess);
